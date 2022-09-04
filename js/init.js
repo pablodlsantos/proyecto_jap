@@ -39,3 +39,20 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+document.addEventListener("DOMContentLoaded", function()
+{
+  // Adding the username to our navbar
+  let username = localStorage.getItem("username");
+  let googleUser = localStorage.getItem("googleUser");
+  let userNav = document.getElementById("username");
+
+  if (googleUser != null && userNav != null)
+  {
+    userNav.innerHTML = googleUser;
+  }
+  else if (username != null && userNav != null)
+  {
+    userNav.innerHTML = username;
+  }
+});

@@ -18,7 +18,7 @@
 
 <body>
   <main> 
-    <div class="container text-center mt-5">
+    <div class="container text-center mt-5"> 
       
       <div class="d-none d-lg-block pt-4"> <!-- We want the logo to disappear if the screen is too small for it (responsive feel) -->
         <img src="img/login.png" alt="Login-JaP-Logo" width="500">
@@ -49,14 +49,13 @@
         </form>
       </div>
 
-      <div id="g_id_onload"
-         data-client_id="595904313188-fc3uq91rv67dqmqug85nuuba99h29ki7.apps.googleusercontent.com"
-         data-ux_mode="redirect"
-         data-login_uri="home.html"
-         data-nonce="data">
+      <!-- We have the google api loaded on the scripts down below, we give to google our client data and preferences -->
+      <div id="g_id_onload" 
+        data-client_id="595904313188-fc3uq91rv67dqmqug85nuuba99h29ki7.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse">
       </div>
       
-      <button class="g_id_signin btn mt-4" type="submit" data-type="standard" id="googleSignIn">
+      <button class="g_id_signin btn mt-4" type="submit" data-type="standard" id="googleSignIn"> <!-- This is the google button per se -->
       </button>
     </div>
   </main>
@@ -75,7 +74,7 @@
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
   <script src="js/index.js"></script>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script> <!-- Loading the google API -->
 </body>
 
 </html>
