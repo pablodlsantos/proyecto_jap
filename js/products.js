@@ -13,6 +13,13 @@ let filteredCategoryData = [];
 let maxCost = undefined;
 let minCost = undefined;
 
+// We want to storage the product id so we can redirect the user to the product-info
+function setProdID(id) 
+{
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html"
+}
+
 // We set the three different sort criterias
 function sortProducts(criteria, array)
 {
@@ -97,8 +104,8 @@ function showProductsList(array)
             ((maxCost == undefined) || (maxCost != undefined && parseInt(product.cost) <= maxCost))) 
         {
             // Formatting the html with bootstrap
-            htmlContentToAppend += ` 
-            <div class="list-group-item list-group-item-action cursor-active">
+            htmlContentToAppend += `
+            <div onclick="setProdID(${product.id})" class="list-group-item list-group-item-action cursor-active">
                 <div class="row">
                     <div class="col-3">
                         <img src="${product.image}" alt="${product.description}" class="img-thumbnail">
