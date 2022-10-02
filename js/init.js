@@ -7,6 +7,11 @@ const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
 
+// Adding the username to our navbar
+let username = localStorage.getItem("username");
+let googleUser = localStorage.getItem("googleUser");
+let userNav = document.getElementById("username");
+
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
 }
@@ -40,19 +45,62 @@ let getJSONData = function(url){
     });
 }
 
-document.addEventListener("DOMContentLoaded", function()
+function showNavbarDropdown()
 {
-  // Adding the username to our navbar
-  let username = localStorage.getItem("username");
-  let googleUser = localStorage.getItem("googleUser");
-  let userNav = document.getElementById("username");
-
   if (googleUser != null && userNav != null)
   {
-    userNav.innerHTML = googleUser;
+    userNav.innerHTML = `
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="nav-item-username" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        ${googleUser}
+      </a>
+      
+      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="nav-item-username">
+        <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+        <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+        <li><a class="dropdown-item" href="index.html" id="logout">Cerrar Sesión</a></li>
+      </ul>
+    </li>
+    `
   }
   else if (username != null && userNav != null)
   {
-    userNav.innerHTML = username;
+    userNav.innerHTML = `
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="nav-list" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        ${username}
+      </a>
+      
+      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="nav-list">
+        <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+        <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+        <li><a class="dropdown-item" href="index.html" id="logout">Cerrar Sesión</a></li>
+      </ul>
+    </li>
+    `
   }
+  else if (userNav != null)
+  {
+    userNav.innerHTML = `
+    <a class="btn btn-danger" href="index.html" role="button">Inicia Sesión</a>
+    `
+  }
+}
+
+function logout()
+{
+  localStorage.removeItem("username");
+  localStorage.removeItem("googleUser");
+}
+
+document.addEventListener("DOMContentLoaded", function()
+{
+  showNavbarDropdown();
+
+  if ((username != null || googleUser != null) && userNav != null)
+  {
+    let logoutLink = document.getElementById("logout");
+
+    logoutLink.addEventListener("click", logout);
+  }  
 });

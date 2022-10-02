@@ -7,6 +7,15 @@ let PROD_URL = "";
 let COMMENTS_URL = "";
 let currentProductInfo = [];
 let currentProductComments = [];
+let newProductComments = [];
+let currentRelatedProducts = [];
+
+//The same function as the product.js
+function setProdID(id) 
+{
+    localStorage.setItem("prodID", id);
+    window.location = "product-info.html"
+}
 
 //From the ID on the localStorage we get the url we want to fetch
 function setProd()
@@ -33,21 +42,57 @@ function showProductInfo()
     document.getElementById("product-name").innerHTML = htmlTitleToAppend;
         
     // Formatting the html with bootstrap
+    
     htmlContentToAppend += `
-        <div class="list-group-item d-flex w-100 justify-content-between">         
+        <div class="list-group-item w-100"> 
+            <div id="carouselProducts" class="carousel slide carousel-fade carousel-dark" data-bs-ride="carousel">  
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         `
 
-    for (i = 0; i < product.images.length; i++)
+    for (i = 1; i < product.images.length; i++)
     {
-        htmlContentToAppend += `
-             <div class="col-3">
-                    <img src="${product.images[i]}" alt="${product.description}" class="img-thumbnail">
-            </div>
+        htmlContentToAppend +=`
+                    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="${i}" aria-label="Slide ${i}"></button>
         `
     }
 
     htmlContentToAppend += `
+            </div>
+                <div class="carousel-inner">  
+                    <div class="carousel-item active">
+                                <img src="${product.images[0]}" alt="${product.description}" class="img-thumbnail mx-auto d-block w-50">
+                    </div>
+
+        `
+
+    
+    for (i = 1; i < product.images.length; i++)
+    {
+        htmlContentToAppend += `    
+                    <div class="carousel-item ">
+                                <img src="${product.images[i]}" alt="${product.description}" class="img-thumbnail mx-auto d-block w-50">
+                    </div>
+        `
+    }
+    
+    htmlContentToAppend += `
+                </div>
+            </div>
+
+            <button class="carousel-control-prev carousel-dark" type="button" data-bs-target="#carouselProducts" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+        
+        
+            <button class="carousel-control-next carousel-dark" type="button" data-bs-target="#carouselProducts" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        
         </div>
+         
         <div class="list-group-item">
             <div class="row">
                 <div class="col">
@@ -68,27 +113,55 @@ function showProductInfo()
 function showProductComments()
 {
     let htmlContentToAppend = "";
-    
+
     for (i = 0; i < currentProductComments.length; i++)
     {
         let comment = currentProductComments[i];
-    
+
         htmlContentToAppend += `
-        <div class="list-group-item">
-            <div class="row">
-                <div class="col">
-                    <h5 class="mb-1"><b>${comment.user}</b> - ${comment.dateTime} - 
-                    <span class="fa fa-star ${comment.score >= 1 ? "checked" : ""}"></span>
-                    <span class="fa fa-star ${comment.score >= 2 ? "checked" : ""}"></span>
-                    <span class="fa fa-star ${comment.score >= 3 ? "checked" : ""}"></span>
-                    <span class="fa fa-star ${comment.score >= 4 ? "checked" : ""}"></span>
-                    <span class="fa fa-star ${comment.score >= 5 ? "checked" : ""}"></span></h5>
-                    <p class="mb-1">${comment.description}</p> 
+            <div class="list-group-item">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="mb-1"><b>${comment.user}</b> - ${comment.dateTime} - 
+                        <span class="fa fa-star ${comment.score >= 1 ? "checked" : ""}"></span>
+                        <span class="fa fa-star ${comment.score >= 2 ? "checked" : ""}"></span>
+                        <span class="fa fa-star ${comment.score >= 3 ? "checked" : ""}"></span>
+                        <span class="fa fa-star ${comment.score >= 4 ? "checked" : ""}"></span>
+                        <span class="fa fa-star ${comment.score >= 5 ? "checked" : ""}"></span></h5>
+                        <p class="mb-1">${comment.description}</p> 
+                    </div>
                 </div>
             </div>
-        </div>
-        `
+            `
     }
+
+    if (localStorage.getItem("newProductComments") != null)
+    {
+        for (i = 0; i < newProductComments.length; i++)
+        {
+            let comment = newProductComments[i];
+            
+            if (currentID === comment.product)
+            {
+            htmlContentToAppend += `
+                <div class="list-group-item">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="mb-1"><b>${comment.user}</b> - ${comment.dateTime} - 
+                            <span class="fa fa-star ${comment.score >= 1 ? "checked" : ""}"></span>
+                            <span class="fa fa-star ${comment.score >= 2 ? "checked" : ""}"></span>
+                            <span class="fa fa-star ${comment.score >= 3 ? "checked" : ""}"></span>
+                            <span class="fa fa-star ${comment.score >= 4 ? "checked" : ""}"></span>
+                            <span class="fa fa-star ${comment.score >= 5 ? "checked" : ""}"></span></h5>
+                            <p class="mb-1">${comment.description}</p> 
+                        </div>
+                    </div>
+                </div>
+                `
+            }
+        }
+    }
+
     document.getElementById("prod-comments-container").innerHTML = htmlContentToAppend;
 }
 
@@ -99,7 +172,7 @@ function addComment()
 
     let userDescriptionInput = document.getElementById("userDescription").value;
     let userScoreInput = document.getElementById("userScore").value;
-    let userNav = document.getElementById("username");
+    let userNav = document.getElementById("username").innerText;
     
     //Formatting the date to show it as seen on the API
     let today = new Date();
@@ -108,19 +181,19 @@ function addComment()
     let dateTime = date+' '+time;
     
     //If the user is logged we push the new comment to the array, storing the array on our localStorage
-    if (userNav.innerHTML !== "")
+    if (userNav !== "Inicia Sesión")
     {
-        currentProductComments.push(
+        newProductComments.push(
             {
                 product: `${currentID}`,
                 score: `${userScoreInput}`,
-                description: `${userDescriptionInput}`,
-                user: `${userNav.innerHTML}`,
+                description:`${userDescriptionInput}`,
+                user: `${userNav}`,
                 dateTime: `${dateTime}`
             }
         );
-
-        localStorage.setItem("currentProductComments", JSON.stringify(currentProductComments));
+        
+        localStorage.setItem("newProductComments", JSON.stringify(newProductComments));
         document.getElementById("loginRequest").innerHTML = null;
     }
     // Else we ask the user to login
@@ -136,6 +209,36 @@ function addComment()
     showProductComments();
 }
 
+function showRelatedProducts()
+{
+    let htmlContentToAppend = "";
+    
+    htmlContentToAppend += `
+        <div class="list-group-item d-flex w-100"> 
+    `
+
+    for (i = 0; i < currentRelatedProducts.length; i++)
+    {
+        let relatedProduct = currentRelatedProducts[i];
+        
+        htmlContentToAppend += `
+        <div onclick="setProdID(${relatedProduct.id})" class="list-group-item-action cursor-active">
+            <div class="col text-center">
+                <img src="${relatedProduct.image}" alt="${relatedProduct.name}" class="img-thumbnail w-50">
+                <h4 class="mb-1 mt-2">${relatedProduct.name}</h4>
+            </div>
+        </div>  
+        `  
+    }
+
+    htmlContentToAppend += `
+        </div> 
+    `
+
+    document.getElementById("prod-related-container").innerHTML = htmlContentToAppend;
+}
+
+
 //Calling our functions once the DOM is loaded
 document.addEventListener('DOMContentLoaded', function()
 {
@@ -146,7 +249,9 @@ document.addEventListener('DOMContentLoaded', function()
     .then(data => 
         {
             currentProductInfo = data;
+            currentRelatedProducts = data.relatedProducts;
             showProductInfo();
+            showRelatedProducts();
         });
 
     fetch(COMMENTS_URL) // We fetch the comments API
@@ -154,13 +259,12 @@ document.addEventListener('DOMContentLoaded', function()
     .then(data => 
         {
             currentProductComments = data;
-            
-            // If we have a new comment we want to get the full new array stored (not the one fetched)
-            if (localStorage.getItem("currentProductComments") !== null)
+
+            if (localStorage.getItem("newProductComments") != null)
             {
-                currentProductComments = JSON.parse(localStorage.getItem("currentProductComments"));
+                newProductComments = JSON.parse(localStorage.getItem("newProductComments"));
             }
-        
+            
             showProductComments(); // We show the comments
 
             // If the user submits the form we show the comments array with the new one included
