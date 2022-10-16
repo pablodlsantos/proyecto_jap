@@ -188,3 +188,10 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+xmp {
+  font: inherit;
+  white-space: pre-wrap;
+  word-break: break-all; 
+  margin: 0;
+}

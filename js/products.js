@@ -4,7 +4,7 @@ We want to sort, and filter the products, using different arrays */
 const ORDER_ASC_BY_PRICE = "Asc."
 const ORDER_DESC_BY_PRICE = "Desc." 
 const ORDER_BY_UNIT_SOLD = "Units"
-const userSearch = document.getElementById("inputSearch");
+const userSearch = document.getElementById("input-search");
 let currentCriteria = "";
 let CAT_URL = "";
 let currentCategoryData = [];
@@ -134,8 +134,8 @@ function showProductsList(array)
 else to the original array */
 function filterByPrice()
 {
-    minCost = document.getElementById("rangeFilterCostMin").value;
-    maxCost = document.getElementById("rangeFilterCostMax").value;
+    minCost = document.getElementById("range-filter-cost-min").value;
+    maxCost = document.getElementById("range-filter-cost-max").value;
 
     if ((minCost != undefined) && (minCost != "") && (parseInt(minCost)) >= 0)
     {
@@ -168,8 +168,8 @@ function filterByPrice()
 // This function clear every filter including the search one
 function clearFilter()
 {
-    document.getElementById("rangeFilterCostMin").value = "";
-    document.getElementById("rangeFilterCostMax").value = "";
+    document.getElementById("range-filter-cost-min").value = "";
+    document.getElementById("range-filter-cost-max").value = "";
     minCost = undefined;
     maxCost = undefined;
 
@@ -200,24 +200,24 @@ document.addEventListener('DOMContentLoaded', function()
         showProductsList(currentCategoryData);  //Showing our products normally
 
         // Our buttons call our sort, filter and clear functions by click events
-        document.getElementById("sortDesc").addEventListener("click", function(){
+        document.getElementById("sort-desc").addEventListener("click", function(){
             sortAndShowProducts(ORDER_DESC_BY_PRICE);
         });
 
-        document.getElementById("sortAsc").addEventListener("click", function(){
+        document.getElementById("sort-asc").addEventListener("click", function(){
             sortAndShowProducts(ORDER_ASC_BY_PRICE);
         });
 
-        document.getElementById("sortByUnit").addEventListener("click", function(){
+        document.getElementById("sort-by-unit").addEventListener("click", function(){
             sortAndShowProducts(ORDER_BY_UNIT_SOLD);
         });
 
-        document.getElementById("rangeFilterCost").addEventListener("click", filterByPrice);
+        document.getElementById("range-filter-cost").addEventListener("click", filterByPrice);
 
-        document.getElementById("clearRangeFilter").addEventListener("click", clearFilter);
+        document.getElementById("clear-range-filter").addEventListener("click", clearFilter);
 
         // The input of our search bar shows a new array instead of the original on real time 
-        document.getElementById("inputSearch").addEventListener("input", function()
+        document.getElementById("input-search").addEventListener("input", function()
             {   
                 productSearch();
                 showProductsList(filteredCategoryData);

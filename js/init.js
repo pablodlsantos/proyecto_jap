@@ -45,28 +45,28 @@ let getJSONData = function(url){
     });
 }
 
+// This functions adds the username to the navbar and gives it a dropdown menu
 function showNavbarDropdown()
 {
-  if (googleUser != null && userNav != null)
+  if (googleUser !== null && username === null) // When its logged with google
   {
-    userNav.innerHTML = `
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="nav-item-username" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    userNav.innerHTML = 
+    `<li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="nav-list" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         ${googleUser}
       </a>
       
-      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="nav-item-username">
+      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="nav-list">
         <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
         <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
         <li><a class="dropdown-item" href="index.html" id="logout">Cerrar Sesión</a></li>
       </ul>
-    </li>
-    `
+    </li>`
   }
-  else if (username != null && userNav != null)
+  else if (username !== null) // When its logged with our form
   {
-    userNav.innerHTML = `
-    <li class="nav-item dropdown">
+    userNav.innerHTML = 
+    `<li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="nav-list" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         ${username}
       </a>
@@ -76,17 +76,15 @@ function showNavbarDropdown()
         <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
         <li><a class="dropdown-item" href="index.html" id="logout">Cerrar Sesión</a></li>
       </ul>
-    </li>
-    `
+    </li>`
   }
-  else if (userNav != null)
+  else if (username === null && googleUser === null && userNav !== null) // If the user isnt logged we show a Login button
   {
-    userNav.innerHTML = `
-    <a class="btn btn-danger" href="index.html" role="button">Inicia Sesión</a>
-    `
+    userNav.innerHTML = `<a class="btn btn-danger" href="index.html" role="button" id="not-logged">Inicia Sesión</a>`
   }
 }
 
+//This function removes the user info of our localstorage once he logs out
 function logout()
 {
   localStorage.removeItem("username");
@@ -95,12 +93,12 @@ function logout()
 
 document.addEventListener("DOMContentLoaded", function()
 {
-  showNavbarDropdown();
+  showNavbarDropdown(); //Adds the user info to the navbar in every page
 
   if ((username != null || googleUser != null) && userNav != null)
   {
     let logoutLink = document.getElementById("logout");
 
-    logoutLink.addEventListener("click", logout);
+    logoutLink.addEventListener("click", logout); //Logouts when the user clicks the link in the dropdown menu
   }  
 });

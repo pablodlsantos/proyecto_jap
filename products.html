@@ -49,12 +49,12 @@
         <div class="row">
           <div class="col text-end">
             <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons"> <!-- This div contains the sort buttons -->
-              <input type="radio" class="btn-check" name="options" id="sortDesc" checked>
-              <label class="btn btn-light" for="sortDesc">$ <i class="fas fa-sort-amount-down mr-1"></i></label>
-              <input type="radio" class="btn-check" name="options" id="sortAsc" checked>
-              <label class="btn btn-light" for="sortAsc">$ <i class="fas fa-sort-amount-up mr-1"></i></label>
-              <input type="radio" class="btn-check" name="options" id="sortByUnit">
-              <label class="btn btn-light" for="sortByUnit">Más vendidos <i class="fas fa-sort-amount-down mr-1"></i></label>
+              <input type="radio" class="btn-check" name="options" id="sort-desc" checked>
+              <label class="btn btn-light" for="sort-desc">$ <i class="fas fa-sort-amount-down mr-1"></i></label>
+              <input type="radio" class="btn-check" name="options" id="sort-asc" checked>
+              <label class="btn btn-light" for="sort-asc">$ <i class="fas fa-sort-amount-up mr-1"></i></label>
+              <input type="radio" class="btn-check" name="options" id="sort-by-unit">
+              <label class="btn btn-light" for="sort-by-unit">Más vendidos <i class="fas fa-sort-amount-down mr-1"></i></label>
             </div>
           </div>
         </div>
@@ -65,15 +65,15 @@
               <p class="font-weight-normal text-end my-2">Precio</p>
             </div>
             <div class="col">
-              <input class="form-control" type="number" placeholder="min." id="rangeFilterCostMin">
+              <input class="form-control" type="number" placeholder="min." id="range-filter-cost-min">
             </div>
             <div class="col">
-              <input class="form-control" type="number" placeholder="máx." id="rangeFilterCostMax">
+              <input class="form-control" type="number" placeholder="máx." id="range-filter-cost-max">
             </div>
             <div class="col-3 p-0">
               <div class="btn-group" role="group">
-                <button class="btn btn-light btn-block" id="rangeFilterCost">Filtrar</button>
-                <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
+                <button class="btn btn-light btn-block" id="range-filter-cost">Filtrar</button>
+                <button class="btn btn-link btn-sm" id="clear-range-filter">Limpiar</button>
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@
 
         <div class="row justify-content-end">
           <div class="col-lg-5"> <!-- This div contains our search bar -->
-            <input class="form-control" type="search" placeholder="Buscar" id="inputSearch">
+            <input class="form-control" type="search" placeholder="Buscar" id="input-search">
             <label for="inputSearch"></label>
           </div>
         </div>

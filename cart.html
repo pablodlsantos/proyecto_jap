@@ -35,10 +35,70 @@
       </div>
     </div>
   </nav>
-  <main>
+  <main class="pb-3">
+    <div class="text-center p-4">
+      <h2>Carrito de compras</h2> <!-- This h2 is the product name, filled by the js -->
+      <p class="lead">Verás aquí tus productos seleccionados</p>
+    </div>
+    
+
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <h3>Articulos a comprar</h3>
+
+      <table class="table table-hover"> <!-- This is the articles table -->
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Costo</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Subtotal</th>
+            <th scope="col"></th>
+          </tr>
+        <tbody id="articles-container"> <!-- We will fill the table body with our JS -->
+        </tbody>
+        </thead>
+      </table>
+
+      <h3 class="mt-4 mb-4">Tipo de envío</h3> 
+      <div class="form-group"> <!--Here starts our buying form -->
+        <form class="needs-validation was-validated" id="buying-form">
+          <input class="form-check-input" type="radio" name="shippingForm" id="premium" required>
+          <label  for="premium">Premium 2 a 5 días (15%)</label> <br>
+          <input class="form-check-input" type="radio" name="shippingForm" id="express" required>
+          <label for="express">Express 5 a 9 días (7%)</label> <br>
+          <input class="form-check-input" type="radio" name="shippingForm" id="standard" required>
+          <label for="standard">Standard 12 a 15 días (5%)</label>
+          <div class="invalid-feedback">
+            Selecciona tu tipo de envío
+          </div>
+          
+      <h3 class="mt-4 mb-4">Dirección de envío</h3>
+          <div class="d-flex flex-wrap">
+            <div class="col-6 mb-3 me-3">
+              <label for="userStreet">Calle</label>
+              <input class="form-control" type="text" id="user-street" required>
+              <div class="invalid-feedback">
+                Completa tu dirección de envío
+              </div>
+            </div>
+            <div class="col-4">
+              <label for="userStreet">Número</label>
+              <input class="form-control" type="text" id="user-st-number" required>
+              <div class="invalid-feedback">
+                Completa tu dirección de envío
+              </div>
+            </div>
+            <div class="col-6">
+              <label for="userStreet">Esquina</label>
+              <input class="form-control" type="text" id="user-st-corner" required>
+              <div class="invalid-feedback">
+                Completa tu dirección de envío
+              </div>
+            </div>
+          </div>
+          <input class="w-25 btn btn-success mt-3" type="submit" value="Comprar" id="buying-submit">
+        </form>
       </div>
     </div>
   </main>

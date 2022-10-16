@@ -6,7 +6,7 @@ function login()
         (f).preventDefault(); /* Preventing the reload of the index page once the user submits */
         
         /* Setting the user info on the session storage */
-        let user = document.getElementById("emailInput").value;
+        let user = document.getElementById("email-input").value;
         localStorage.setItem("username", user);
 
         if (user != null)

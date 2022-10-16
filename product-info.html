@@ -38,9 +38,13 @@
   </nav>
   
   <main class="pb-3">
-    <div class="text-center p-4">
-      <h2 id="product-name"></h2> <!-- This h2 is the product name, filled by the js -->
-      <p class="lead">Verás aquí detalles del producto.</p>
+    <div class="d-flex w-50 mx-auto justify-content-between align-items-center">
+      <div class="text-center p-4">
+        <h2 id="product-name"></h2> <!-- This h2 is the product name, filled by the js -->
+        <p class="lead">Verás aquí detalles del producto.</p>
+      </div>
+      
+      <button type="button" class="btn btn-success" id="buy-btn"><i class="fas fa-shopping-cart"></i> Comprar</button>
     </div>
     
     <div class="container">
@@ -63,16 +67,16 @@
 
       <h3>Comentar:</h3>
       <div class="form-group">
-        <form class="needs-validation was-validated" id="commentForm">  <!-- This form is to make a new comment  -->
-          <label class="lead" for="userComment">Tu opinión:</label>
-          <input class="form-control" type="text" id="userDescription" required>  <!-- The user gives his opinion about the product  -->
+        <form class="needs-validation was-validated" id="comment-form">  <!-- This form is to make a new comment  -->
+          <label class="lead" for="user-description">Tu opinión:</label>
+          <input class="form-control" type="text" id="user-description" required>  <!-- The user gives his opinion about the product  -->
           <div class="invalid-feedback">
             Ingresa tu comentario
           </div>
 
-          <label class="lead mt-3" for="userScore">Puntúa el producto:</label>
+          <label class="lead mt-3" for="user-score">Puntúa el producto:</label>
           <div class="col-3">
-            <select class="form-control" id="userScore" required> <!-- The user gives the product a score  -->
+            <select class="form-control" id="user-score" required> <!-- The user gives the product a score  -->
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -81,9 +85,9 @@
             </select>
           </div>
 
-          <input class="w-25 btn btn-primary mt-3" type="submit" value="Enviar" id="userComment"> <!-- A simple submit button to our form  -->
+          <input class="w-25 btn btn-primary mt-3" type="submit" value="Enviar" id="user-comment"> <!-- A simple submit button to our form  -->
           
-          <div class="" id="loginRequest"></div> <!-- This div will be filled with a link to our login page (index.html) if the user isnt' logged  -->
+          <div id="login-request"></div> <!-- This div will be filled with a link to our login page (index.html) if the user isnt' logged  -->
         </form>
       </div>
     </div>
