@@ -21,8 +21,6 @@ function setProdID(id)
 
 function buyProd()
 {
-    let productRepeated = false;
-    
     let newProd =
         {
             id: currentProductInfo.id,
@@ -30,9 +28,16 @@ function buyProd()
             unitCost: currentProductInfo.cost,
             currency: currentProductInfo.currency,
             image: currentProductInfo.images[0],
-            count: 1
+            count: 0
         };
     
+    let productRepeated = false;
+
+    if (!productRepeated){
+        cartArray.push(newProd);
+        window.location = "cart.html"
+    }
+
     cartArray = cartArray.map((product) => {
         if (product.id === currentProductInfo.id) {
             productRepeated = true;
@@ -40,12 +45,7 @@ function buyProd()
             window.location = "cart.html"
         }
         return product; 
-      });
-
-    if (!productRepeated){
-        cartArray.push(newProd);
-        window.location = "cart.html"
-    }
+    });
 
     localStorage.setItem("cartArray", JSON.stringify(cartArray));
 }
