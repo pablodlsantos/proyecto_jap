@@ -1,19 +1,43 @@
 // This function sets the email and password of the user on our session storage, then redirects to home
 function login()
 {
-    document.getElementById("login-form").addEventListener("submit", function(f)
+    const loginForm = document.getElementById("login-form");
+
+    loginForm.addEventListener("submit", function(f)
     {
         (f).preventDefault(); /* Preventing the reload of the index page once the user submits */
         
-        /* Setting the user info on the session storage */
-        let user = document.getElementById("email-input").value;
-        localStorage.setItem("username", user);
+        if (loginForm.checkValidity() === true){
+            /* Setting the user info on the session storage */
+            let user = document.getElementById("email-input").value;
+            localStorage.setItem("username", user);
 
-        if (user != null)
-        {
-            window.location.href ="home.html"; /* Redirecting to home once we have user info */
+            if (user != null)
+            {
+                window.location.href ="home.html"; /* Redirecting to home once we have user info */
+            }
         }
-    });   
+    });
+
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+    
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+    
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+            }
+    
+            form.classList.add('was-validated')
+        }, false)
+        })
+    })();
 }
 
 // This function will parse any JWT token, we need it for the google credential 

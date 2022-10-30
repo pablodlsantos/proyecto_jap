@@ -19,8 +19,10 @@ function setProdID(id)
     window.location = "product-info.html"
 }
 
+// This functions adds our product to the cart
 function buyProd()
 {
+    // Formatting our product object
     let newProd =
         {
             id: currentProductInfo.id,
@@ -28,16 +30,13 @@ function buyProd()
             unitCost: currentProductInfo.cost,
             currency: currentProductInfo.currency,
             image: currentProductInfo.images[0],
-            count: 0
+            count: 1
         };
     
+    
     let productRepeated = false;
-
-    if (!productRepeated){
-        cartArray.push(newProd);
-        window.location = "cart.html"
-    }
-
+    
+    // If the product is repeated we add a count to it instead of add it to the array
     cartArray = cartArray.map((product) => {
         if (product.id === currentProductInfo.id) {
             productRepeated = true;
@@ -47,6 +46,13 @@ function buyProd()
         return product; 
     });
 
+    // If the product isnt repeated we add it to our array
+    if (!productRepeated){
+        cartArray.push(newProd);
+        window.location = "cart.html"
+    }
+
+    // We add the array to the local storage to parse it in the cart.html
     localStorage.setItem("cartArray", JSON.stringify(cartArray));
 }
 
@@ -113,7 +119,6 @@ function showProductInfo()
     }
 
     // The images of the carrousel are already loaded, now we want the carrousel buttons and effects and the products info
-    
     htmlContentToAppend += `
                 </div>
             </div>

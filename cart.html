@@ -41,11 +41,12 @@
       <p class="lead">Verás aquí tus productos seleccionados</p>
     </div>
     
-
     <div class="container">
       <h3>Articulos a comprar</h3>
 
-      <table class="table table-hover"> <!-- This is the articles table -->
+      <h4 class="text-center" id="cart-filler"><a href="categories.html">¡Su carrito está vacío!, ¡click aquí para ir a categorías!</a></h4>
+
+      <table class="table table-hover" style="display: none;" id="articles-header"> <!-- This is the articles table -->
         <thead>
           <tr>
             <th scope="col"></th>
@@ -60,45 +61,154 @@
         </thead>
       </table>
 
-      <h3 class="mt-4 mb-4">Tipo de envío</h3> 
+      <h3 class="mt-4 mb-4">Costos</h3> <!-- This list will get filled with our subtotal, shipping and total values -->
+      <div class="list-group">
+        <div class="list-group-item">
+          <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1">Subtotal</h4>
+            <small class="text-muted" id="subtotal">USD 0</small>
+          </div>
+          <div>
+            <p class="mb-1">Costo de los productos</p>
+          </div>
+        </div>
+        
+        <div class="list-group-item">
+          <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1">Costo de envío</h4>
+            <small class="text-muted" id="shipping">Elija tipo de envío</small>
+          </div>
+          <div>
+            <p class="mb-1">Según el tipo de envío</p>
+          </div>
+        </div>
+        
+        <div class="list-group-item">
+          <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1">Total ($)</h4>
+            <small class="fw-bold" id="total">USD 0</small>
+          </div>
+          <div>
+            <p class="mb-1">Costo de los productos más costo de envío</p>
+          </div>
+        </div>
+      </div>
+
+      
       <div class="form-group"> <!--Here starts our buying form -->
-        <form class="needs-validation was-validated" id="buying-form">
-          <input class="form-check-input" type="radio" name="shippingForm" id="premium" required>
-          <label  for="premium">Premium 2 a 5 días (15%)</label> <br>
-          <input class="form-check-input" type="radio" name="shippingForm" id="express" required>
-          <label for="express">Express 5 a 9 días (7%)</label> <br>
-          <input class="form-check-input" type="radio" name="shippingForm" id="standard" required>
-          <label for="standard">Standard 12 a 15 días (5%)</label>
-          <div class="invalid-feedback">
-            Selecciona tu tipo de envío
-          </div>
+        <form class="needs-validation" id="buying-form" novalidate>
+          <h3 class="mt-4 mb-4">Tipo de envío</h3>  <!--Selecting a shipping will update our shipping value in real time -->
+            <input class="form-check-input" type="radio" name="shipping-form" id="premium" required>
+            <label  for="premium">Premium 2 a 5 días (15%)</label> <br>
+            <input class="form-check-input" type="radio" name="shipping-form" id="express" required>
+            <label for="express">Express 5 a 9 días (7%)</label> <br>
+            <input class="form-check-input" type="radio" name="shipping-form" id="standard" required>
+            <label for="standard">Standard 12 a 15 días (5%)</label>
+            <div class="invalid-feedback">
+              Selecciona tu tipo de envío
+            </div>
           
-      <h3 class="mt-4 mb-4">Dirección de envío</h3>
-          <div class="d-flex flex-wrap">
-            <div class="col-6 mb-3 me-3">
-              <label for="userStreet">Calle</label>
-              <input class="form-control" type="text" id="user-street" required>
-              <div class="invalid-feedback">
-                Completa tu dirección de envío
+          <h3 class="mt-4 mb-4">Dirección de envío</h3> <!--Normal user info -->
+            <div class="d-flex flex-wrap">
+              <div class="col-6 mb-3 me-3">
+                <label for="user-street">Calle</label>
+                <input class="form-control" type="text" id="user-street" required>
+                <div class="invalid-feedback">
+                  Completa tu dirección de envío
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="user-st-number">Número</label>
+                <input class="form-control" type="text" id="user-st-number" required>
+                <div class="invalid-feedback">
+                  Completa tu dirección de envío
+                </div>
+              </div>
+              <div class="col-6">
+                <label for="user-st-corner">Esquina</label>
+                <input class="form-control" type="text" id="user-st-corner" required>
+                <div class="invalid-feedback">
+                  Completa tu dirección de envío
+                </div>
               </div>
             </div>
-            <div class="col-4">
-              <label for="userStreet">Número</label>
-              <input class="form-control" type="text" id="user-st-number" required>
-              <div class="invalid-feedback">
-                Completa tu dirección de envío
-              </div>
-            </div>
-            <div class="col-6">
-              <label for="userStreet">Esquina</label>
-              <input class="form-control" type="text" id="user-st-corner" required>
-              <div class="invalid-feedback">
-                Completa tu dirección de envío
+
+          <h3 class="mt-4 mb-4">Forma de pago</h3> <!--The user will select a way of paying on the modal -->
+          <div class="d-flex">
+            <p class="me-3" id="buy-condition">No ha seleccionado</p>
+            <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Seleccionar</a>
+          </div>
+          <div class="invalid-feedback">
+            Debes completar tu forma de pago
+          </div>
+
+          <!--Modal starts -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Forma de pago</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <div class="modal-body">
+                  <input class="form-check-input" type="radio" name="buy-condition-form" id="credit-card" required>
+                  <label  for="credit-card">Tarjeta de crédito</label> 
+                  
+                  <hr>
+                  
+                  <fieldset id="card-fieldset"> 
+                    <div class="d-flex">
+                      <div class="col-5 me-3">
+                        <label for="card-number">Número de tarjeta</label>
+                        <input class="form-control" type="text" name="buy-condition-form" id="card-number" required>
+                      </div>
+                      
+                      <div class="col-4">
+                        <label for="security-number">Código de seg.</label>
+                        <input class="form-control" type="text" name="buy-condition-form" id="security-number" required>
+                      </div>
+                    </div>
+                    
+                    <div class="col-5 my-3">
+                      <label for="validity-date">Vencimiento (MM/AA)</label>
+                      <input class="form-control" type="text" name="buy-condition-form" id="validity-date" required>
+                    </div>
+                  </fieldset>
+                
+                  <input class="form-check-input" type="radio" name="buy-condition-form" id="bank-account" required>
+                  <label  for="credit-card">Transferencia bancaria</label>
+                    
+                    <hr>
+
+                  <fieldset id="bank-fieldset">
+                    <div class="col-5">
+                      <label for="account-number">Número de cuenta</label>
+                      <input class="form-control" type="text" name="buy-condition-form" id="account-number" required>
+                    </div>
+                  </fieldset>
+                </div>
+                
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
               </div>
             </div>
           </div>
-          <input class="w-25 btn btn-success mt-3" type="submit" value="Comprar" id="buying-submit">
+          <!--Modal ends -->
+          
+          <input class="w-25 btn btn-success mt-3" type="submit" value="Comprar" id="buying-submit"> <!--A simple submit button -->
         </form>
+      </div>
+
+      <div class="alert alert-success justify-content-between" style="display: none;" role="alert" id="success-alert"> <!--Buying succesfully will display this alert -->
+        ¡Has comprado con éxito!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+      <div class="alert alert-danger justify-content-between" style="display: none;" role="alert" id="empty-cart-alert"> <!--Submitting the form with an empty cart will display this alert -->
+        ¡Debes llenar tu carrito para comprar productos!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     </div>
   </main>
