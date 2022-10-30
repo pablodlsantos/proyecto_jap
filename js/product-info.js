@@ -287,12 +287,33 @@ function showRelatedProducts()
     document.getElementById("prod-related-container").innerHTML = htmlContentToAppend;
 }
 
+function commentValidation(){
+    (() => {
+        'use strict'
+    
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+    
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+            }
+    
+            form.classList.add('was-validated')
+        }, false)
+        })
+    })();
+}
 
 //Calling our functions once the DOM is loaded
 document.addEventListener('DOMContentLoaded', function()
 {
     setProd(); // We set the product
-    
+    commentValidation(); // Validating the comments form with Bootstrap
+
     fetch(PROD_URL) // We fetch the product info API
     .then(response => response.json())  
     .then(data => 
@@ -322,7 +343,10 @@ document.addEventListener('DOMContentLoaded', function()
             formSubmit.addEventListener("submit", function(e)
             {
                 (e).preventDefault();
-                addComment();      
+
+                if (formSubmit.checkValidity() === true){
+                    addComment();
+                }  
             });
         });
 });
