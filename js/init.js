@@ -89,6 +89,7 @@ function logout()
 {
   localStorage.removeItem("username");
   localStorage.removeItem("googleUser");
+  localStorage.removeItem("profile");
 }
 
 document.addEventListener("DOMContentLoaded", function()
